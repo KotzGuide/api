@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Api.Core;
 using Api.Core.Services;
+using Api.Services;
 
 namespace Api
 {
@@ -38,6 +39,7 @@ namespace Api
 
             services.AddScoped<DBContext>();
             services.AddScoped<ErrorContext>();
+            services.AddScoped<SaintService>();
             services.AddTransient<TokenService>();
 
             services.AddDbContext<DBContext>(options =>
@@ -143,6 +145,7 @@ namespace Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
