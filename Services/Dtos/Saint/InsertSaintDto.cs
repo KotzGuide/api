@@ -1,10 +1,7 @@
-﻿using Api.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Api.Enums;
+using Api.Models;
 
-namespace Api.Services.Dtos
+namespace Api.Services.Dtos.Saint
 {
     public class InsertSaintDto
     {

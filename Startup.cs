@@ -33,21 +33,23 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            
+            
+            services.AddScoped<SaintService>();
+            services.AddScoped<CosmoService>();
 
+            services.AddScoped<ErrorContext>();
+            services.AddScoped<DBContext>();
+            services.AddTransient<TokenService>();
             services.AddHttpContextAccessor();
 
-            services.AddScoped<DBContext>();
-            services.AddScoped<ErrorContext>();
-            services.AddScoped<SaintService>();
-            services.AddTransient<TokenService>();
+            services.AddControllers();
+            services.AddRazorPages();
 
             services.AddDbContext<DBContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
-
-            services.AddRazorPages();
+            });            
 
             services.AddSwaggerGen(x =>
             {

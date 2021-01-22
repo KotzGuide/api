@@ -2,27 +2,24 @@
 using Api.Core;
 using Api.Core.Helpers;
 using Api.Models;
-using Api.Services.Dtos;
-using Api.Services.Dtos.Saint;
+using Api.Services.Dtos.Cosmo;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Api.Services
 {
-    public class SaintService
+    public class CosmoService
     {
         private readonly DBContext _context;
         private readonly ErrorContext _errorContext;
-        public SaintService(DBContext context, ErrorContext errorContext)
+        public CosmoService(DBContext context, ErrorContext errorContext)
         {
             _context = context;
             _errorContext = errorContext;
         }
 
-        public async Task<int> Insert(InsertSaintDto dto)
+        public async Task<int> Insert(InsertCosmoDto dto)
         {
             try
             {
@@ -30,7 +27,7 @@ namespace Api.Services
                 if (!model.Validate(_errorContext))
                     return -1;
 
-                await _context.Saints.AddAsync(model);
+                await _context.Cosmos.AddAsync(model);
                 await _context.SaveChangesAsync();
                 return model.Id;
             }
@@ -39,13 +36,11 @@ namespace Api.Services
                 _errorContext.AddError(Messages.DEFAULT_USER_MESSAGE, e.Message + "\n\n" + e.StackTrace);
                 return -1;
             }
-        }
-
-        public async Task<SaintModel> Get(int id)
+        }public async Task<CosmoModel> Get(int id)
         {
             try
             {
-                return await _context.Saints.SingleOrDefaultAsync(x => x.Id == id);
+                return await _context.Cosmos.SingleOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception e)
             {

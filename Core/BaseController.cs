@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace Api.Core
 {
+    [Route("[controller]")]
+    [ApiController]
     public abstract class BaseController : ControllerBase
     {
         protected ObjectResult SuccessList(IEnumerable data)

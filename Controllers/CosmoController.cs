@@ -1,8 +1,6 @@
 ﻿using Api.Core;
-using Api.Core.Attributes;
 using Api.Services;
-using Api.Services.Dtos;
-using Api.Services.Dtos.Saint;
+using Api.Services.Dtos.Cosmo;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,13 +9,12 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
-    public class SaintController : BaseController
+    public class CosmoController : BaseController
     {
-        private readonly SaintService _service;
-
-        public SaintController(SaintService service)
+        private readonly CosmoService _service;
+        public CosmoController(CosmoService service)
         {
-            _service = service; 
+            _service = service;
         }
 
         [HttpGet]
@@ -26,9 +23,8 @@ namespace Api.Controllers
             return SuccessData(await _service.Get(id));
         }
 
-        [TypeFilter(typeof(BearerAttribute))]
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] InsertSaintDto dto)
+        public async Task<IActionResult> Insert([FromBody] InsertCosmoDto dto)
         {
             return SuccessData(await _service.Insert(dto));
         }
