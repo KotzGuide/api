@@ -1,0 +1,38 @@
+﻿@page
+@model Api.Pages.Saints.IndexModel
+@{
+    ViewData["Title"] = "Cavaleiros";
+}
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Nome")
+            </th>
+            <th>
+                @Html.DisplayName("Constelação")
+            </th>
+            <th>Edit | Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Saints != null)
+            @foreach (var item in Model.Saints)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Constellation)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-page="./AllCustomer" onclick="return confirm('Certeza que deseja deletar?');" asp-page-handler="\Delete" asp-route-id="@item.Id">Deletar</a>
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>

@@ -1,0 +1,18 @@
+﻿@page
+@model Api.Pages.Saints.EditModel
+@{
+}
+
+<h1>Editar Cavaleiro</h1>
+<br>
+<br>
+@if (Model.Saint != null)
+{
+    <strong><h3>@Model.Saint.Name</h3></strong>
+    <h5>Constelação: @Model.Saint.Constellation</h5>
+}
+else
+{
+    <strong><h3>Cavaleiro não encontrado</h3></strong>
+}
+
