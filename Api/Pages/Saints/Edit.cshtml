@@ -1,18 +1,20 @@
 ﻿@page
 @model Api.Pages.Saints.EditModel
 @{
+    ViewData["Title"] = "Cavaleiros";
 }
-
-<h1>Editar Cavaleiro</h1>
-<br>
+<h1><strong>Editar Cavaleiro</strong></h1>
 <br>
 @if (Model.Saint != null)
 {
-    <strong><h3>@Model.Saint.Name</h3></strong>
+    <h3>@Model.Saint.Name</h3>
     <h5>Constelação: @Model.Saint.Constellation</h5>
 }
 else
 {
-    <strong><h3>Cavaleiro não encontrado</h3></strong>
+    <strong>Cavaleiro não encontrado!</strong>
 }
+<div>
+    <a asp-page="./Index">Voltar a Lista</a>
+</div>
 

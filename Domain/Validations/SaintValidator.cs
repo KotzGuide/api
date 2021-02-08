@@ -17,7 +17,7 @@ namespace Domain.Models.Validations
 
             RuleFor(x => x.Description)
                 .MinimumLength(3).WithMessage("Tamanho mínimo de 3")
-                .MaximumLength(250).WithMessage("Tamanho máximo de 250")
+                .MaximumLength(500).WithMessage("Tamanho máximo de 250")
                 .NotNull().WithMessage("Esta propriedade não pode estar vazia");
 
             RuleFor(x => x.Rank)

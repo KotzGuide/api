@@ -3,22 +3,198 @@
 @{
     ViewData["Title"] = "Cavaleiros";
 }
-<h1>@ViewData["Title"]</h1>
+<script>
+    function Redirect() {
+        window.location.href = "saints/add";
+    }
+
+    function ToggleFilter(number = 0) {
+        var key;
+        var value;
+
+        var matches = window.location.href.match(/[a-z\d]+=[a-z\d]+/gi);
+        var count = matches ? matches.length : 0;
+
+        if (number === 1) {
+            key = "name";
+            const urlParams = new URLSearchParams(window.location.search);
+            const param = urlParams.get('name');
+            if (count >= 1)
+                window.history.pushState({}, document.title, "/" + "saints");
+            if (param == null)
+                value = "true";
+            else if (param == "true")
+                value = "false";
+            else 
+                value = null;
+        } else if (number === 2) {
+            key = "constellation";
+            const urlParams = new URLSearchParams(window.location.search);
+            const param = urlParams.get('constellation');
+            if (count >= 1)
+                window.history.pushState({}, document.title, "/" + "saints");
+            if (param == null)
+                value = "true";
+            else if (param == "true")
+                value = "false";
+            else
+                value = null;
+        } else if (number === 3) {
+            key = "rank";
+            const urlParams = new URLSearchParams(window.location.search);
+            const param = urlParams.get('rank');
+            if (count >= 1)
+                window.history.pushState({}, document.title, "/" + "saints");
+            if (param == null)
+                value = "true";
+            else if (param == "true")
+                value = "false";
+            else
+                value = null;
+        } else {
+            return;
+        }        
+        if (value == null) {
+            window.location.href = "saints";
+            return;
+        }
+
+        key = encodeURIComponent(key);
+        value = encodeURIComponent(value);
+
+        var kvp = document.location.search.substr(1).split('&');
+        let i = 0;
+
+        for (; i < kvp.length; i++) {
+            if (kvp[i].startsWith(key + '=')) {
+                let pair = kvp[i].split('=');
+                pair[1] = value;
+                kvp[i] = pair.join('=');
+                break;
+            }
+        }
+
+        if (i >= kvp.length) {
+            kvp[kvp.length] = [key, value].join('=');
+        }
+
+        let params = kvp.join('&');
+        
+        document.location.search = params;
+    }
+
+    function RefreshIcons() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const nparam = urlParams.get('name');
+        const cparam = urlParams.get('constellation');
+        const rparam = urlParams.get('rank');
+
+        if (nparam == null) {
+            document.getElementById("nameN").classList.remove("inone");
+            document.getElementById("nameD").classList.add("inone");
+            document.getElementById("nameU").classList.add("inone");
+        } else if (nparam == "true") {
+            document.getElementById("nameN").classList.add("inone");
+            document.getElementById("nameD").classList.remove("inone");
+            document.getElementById("nameU").classList.add("inone");
+        } else {
+            document.getElementById("nameN").classList.add("inone");
+            document.getElementById("nameD").classList.add("inone");
+            document.getElementById("nameU").classList.remove("inone");
+        }
+
+        if (cparam == null) {
+            document.getElementById("constN").classList.remove("inone");
+            document.getElementById("constD").classList.add("inone");
+            document.getElementById("constU").classList.add("inone");
+        } else if (cparam == "true") {
+            document.getElementById("constN").classList.add("inone");
+            document.getElementById("constD").classList.remove("inone");
+            document.getElementById("constU").classList.add("inone");
+        } else {
+            document.getElementById("constN").classList.add("inone");
+            document.getElementById("constD").classList.add("inone");
+            document.getElementById("constU").classList.remove("inone");
+        }
+
+        if (rparam == null) {
+            document.getElementById("rankN").classList.remove("inone");
+            document.getElementById("rankD").classList.add("inone");
+            document.getElementById("rankU").classList.add("inone");
+        } else if (rparam == "true") {
+            document.getElementById("rankN").classList.add("inone");
+            document.getElementById("rankD").classList.remove("inone");
+            document.getElementById("rankU").classList.add("inone");
+        } else {
+            document.getElementById("rankN").classList.add("inone");
+            document.getElementById("rankD").classList.add("inone");
+            document.getElementById("rankU").classList.remove("inone");
+        }
+    }
+
+    window.onload = function () {
+        RefreshIcons();
+    };
+</script>
+
+<style>
+    .inone{
+        display: none;
+    }
+</style>
+
+<h2><strong>Cavaleiros</strong></h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayName("Nome")
+                Nome 
+                <a href="#" onclick="ToggleFilter(1);" onload="RefreshIcons();">
+                    <svg id="nameN" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                    </svg>
+                    <svg id="nameD" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down inone" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                    <svg id="nameU" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up inone" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                    </svg>
+                </a>
             </th>
             <th>
-                @Html.DisplayName("Constelação")
+                Constelação
+                <a href="#" onclick="ToggleFilter(2);">
+                    <svg id="constN" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash " viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                    </svg>
+                    <svg id="constD" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down inone" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                    <svg id="constU" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up inone" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                    </svg>
+                </a>
             </th>
-            <th>Edit | Delete</th>
+            <th>
+                Rank
+                <a href="#" onclick="ToggleFilter(3);">
+                    <svg id="rankN"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                    </svg>
+                    <svg id="rankD" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down inone" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                    <svg id="rankU" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up inone" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                    </svg>
+                </a>
+            </th>
+            <th>Editar | Deletar</th>
         </tr>
     </thead>
     <tbody>
-        @if(Model.Saints != null)
+        @if (Model.Saints != null)
             @foreach (var item in Model.Saints)
             {
                 <tr>
@@ -29,10 +205,67 @@
                         @Html.DisplayFor(modelItem => item.Constellation)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Rank)
+                    </td>
+                    <td>
                         <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
-                        <a asp-page="./AllCustomer" onclick="return confirm('Certeza que deseja deletar?');" asp-page-handler="\Delete" asp-route-id="@item.Id">Deletar</a>
+                        <a href="#" onclick="ConfirmDelete(@item.Id)">Deletar</a>
+
                     </td>
                 </tr>
             }
+        <tr>
+            <td><input type="button" class="btn btn-success" value="Adicionar Cavaleiro" onclick="Redirect()"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Deletar Cavaleiro</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <h4>
+                    Tem certeza de que deseja remover este cavaleiro?
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-success" onclick="DeleteSaint()">Confirm</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hiddenSaintId" />
+
+@section scripts{
+    <script>
+        var ConfirmDelete = function (SaintId) {
+            $("#hiddenSaintId").val(SaintId);
+            $("#myModal").modal('show');
+        }
+
+        var DeleteSaint = function () {
+            var saintId = $("#hiddenSaintId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Saint/Delete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: saintId,
+                success: function (result) {
+                    $("#myModal").modal("hide");
+                    $("#row_" + saintId).remove();
+                    window.location.reload(true); 
+                }
+            })
+        }
+    </script>
+}

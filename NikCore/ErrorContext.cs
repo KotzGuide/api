@@ -9,13 +9,17 @@ namespace NikCore
     public class ErrorContext
     {
         public List<ResponseError> Errors { get; }
+        public bool OverrideResult { get; private set; }
 
         public bool HasError => Errors.Any();
 
         public ErrorContext()
         {
             Errors = new List<ResponseError>();
+            OverrideResult = true;
         }
+
+        public void SetOverrideResponse(bool overrideResult) => OverrideResult = overrideResult;
 
         public void AddError(string UserError, string DeveloperError)
         {

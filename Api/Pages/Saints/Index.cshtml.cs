@@ -23,7 +23,30 @@ namespace Api.Pages.Saints
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Saints = await repository.GetAll();
+            var name = HttpContext.Request.Query["name"].ToString();
+            var constellation = HttpContext.Request.Query["constellation"].ToString();
+            var rank = HttpContext.Request.Query["rank"].ToString();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                bool nameQuery;
+                if (bool.TryParse(name, out nameQuery))
+                    Saints = await repository.GetAll(nameQuery, null, null);
+            }
+            else if (!string.IsNullOrEmpty(constellation))
+            {
+                bool constellationQuery;
+                if (bool.TryParse(constellation, out constellationQuery))
+                    Saints = await repository.GetAll(null, constellationQuery, null);
+            }
+            else if (!string.IsNullOrEmpty(rank))
+            {
+                bool rankQuery;
+                if (bool.TryParse(rank, out rankQuery))
+                    Saints = await repository.GetAll(null, null, rankQuery);
+            }
+            else
+                Saints = await repository.GetAll(null, null, null);
             return Page();
         }
     }

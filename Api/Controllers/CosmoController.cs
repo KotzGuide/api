@@ -14,7 +14,7 @@ namespace Api.Controllers
     {
         private readonly ICosmoRepository repository;
 
-        public CosmoController(CosmoRepository repository)
+        public CosmoController(ICosmoRepository repository)
         {
             this.repository = repository;
         }

@@ -19,6 +19,8 @@ using NikCore.Services;
 using NikCore;
 using Data.Interfaces;
 using Data.Repositories;
+using NikCore.Helpers;
+using IoC;
 
 namespace Api
 {
@@ -34,19 +36,28 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ISaintRepository, SaintRepository>();
-            services.AddScoped<ICosmoRepository, CosmoRepository>();
-            services.AddScoped<ErrorContext>();
-            services.AddScoped<DBContext>();
-            services.AddTransient<TokenService>();
-            services.AddHttpContextAccessor();
+            ApplicationIoC.ConfigureServices(services);
+            BaseIoC.ConfigureServices(services);
 
             services.AddRazorPages();
 
+            services.AddRouting(x => 
+            {
+                x.LowercaseUrls = true;
+            });
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(60);
+                options.ExcludedHosts.Add("nfadevelop.com.br");
+                options.ExcludedHosts.Add("www.nfadevelop.com.br");
+            });
+
             services.AddDbContext<DBContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b=>b.MigrationsAssembly("Api - KotzGuide"));
-                
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b=>b.MigrationsAssembly("Api - KotzGuide"));               
             });
 
             services.AddSwaggerGen(x =>
@@ -127,8 +138,6 @@ namespace Api
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

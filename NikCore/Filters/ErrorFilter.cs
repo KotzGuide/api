@@ -21,11 +21,14 @@ namespace NikCore.Filters
             {
                 object data;
                 data = ErrorContext.Errors;
-                context.Result = Error(data);
+
+                if(ErrorContext.OverrideResult)
+                    context.Result = Error(data);
+
                 if (ErrorContext.Errors.Any(x => x.ErrorForDeveloper.ToLower().Contains("token")))
                     context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 else
-                    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
         }
 

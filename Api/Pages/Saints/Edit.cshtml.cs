@@ -26,7 +26,7 @@ namespace Api.Pages.Saints
             {
                 int idQuery;
                 if(int.TryParse(idQueryS, out idQuery))
-                Saint = await repository.Get(idQuery);
+                    Saint = await repository.Get(idQuery);
             }
 
             return Page();

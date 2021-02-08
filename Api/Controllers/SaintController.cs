@@ -20,17 +20,29 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] int? id)
+        public async Task<IActionResult> Get(
+            [FromQuery] int? id, 
+            [FromQuery] bool? name,
+            [FromQuery] bool? constellation,
+            [FromQuery] bool? rank
+            )
         {
             if (id != null)
                 return SuccessData(await repository.Get(id.Value));
-            return SuccessList(await repository.GetAll());
+            return SuccessList(await repository.GetAll(name, constellation, rank));
         }
 
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] InsertSaintDto dto)
         {
             return SuccessData(await repository.Insert(dto));
+        }
+
+        [HttpPost]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete([FromBody] int id)
+        {
+            return SuccessData(await repository.Delete(id));
         }
     }
 }
