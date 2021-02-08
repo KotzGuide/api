@@ -35,7 +35,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] InsertSaintDto dto)
         {
-            return SuccessData(await repository.Insert(dto));
+            return SuccessId<int>(await repository.Insert(dto));
         }
 
         [HttpPost]
@@ -43,6 +43,12 @@ namespace Api.Controllers
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             return SuccessData(await repository.Delete(id));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateSaintDto dto)
+        {
+            return SuccessData(await repository.Update(dto));
         }
     }
 }

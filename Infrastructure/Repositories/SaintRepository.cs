@@ -1,5 +1,6 @@
 ﻿using Data.Dtos.Saint;
 using Data.Interfaces;
+using Domain.Enums;
 using Domain.Models;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -106,6 +107,32 @@ namespace Data.Repositories
                     return false;
                 }
                 _context.Saints.Remove(saint);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                _errorContext.AddError(UserMessages.DEFAULT, e);
+                return false;
+            }
+        }
+    
+        public async Task<bool> Update(UpdateSaintDto dto)
+        {
+            try
+            {
+                var foundModel = await _context.Saints.FindAsync(dto.Id);
+                if(foundModel == null)
+                {
+                    _errorContext.AddError(UserMessages.NOT_FOUND, "Cavaleiro não encontrado");
+                    return false;
+                }
+
+                foundModel.Update(dto.Name, dto.Constellation, dto.Description, (Rank)dto.Rank);
+                if(!foundModel.Validate(_errorContext))
+                    return false;
+
+                _context.Update(foundModel);
                 await _context.SaveChangesAsync();
                 return true;
             }

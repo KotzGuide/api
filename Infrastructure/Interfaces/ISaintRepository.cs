@@ -13,5 +13,6 @@ namespace Data.Interfaces
         Task<SaintModel> Get(int id);
         Task<int> Insert(InsertSaintDto dto);
         Task<bool> Delete(int id);
+        Task<bool> Update(UpdateSaintDto dto);
     }
 }

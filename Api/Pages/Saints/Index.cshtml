@@ -4,10 +4,6 @@
     ViewData["Title"] = "Cavaleiros";
 }
 <script>
-    function Redirect() {
-        window.location.href = "saints/add";
-    }
-
     function ToggleFilter(number = 0) {
         var key;
         var value;
@@ -79,7 +75,7 @@
         }
 
         let params = kvp.join('&');
-        
+                
         document.location.search = params;
     }
 
@@ -215,7 +211,7 @@
                 </tr>
             }
         <tr>
-            <td><input type="button" class="btn btn-success" value="Adicionar Cavaleiro" onclick="Redirect()"></td>
+            <td><input type="button" class="btn btn-success" value="Adicionar Cavaleiro" onclick="window.location.href = 'saints/add';"></td>
             <td></td>
             <td></td>
             <td></td>
@@ -236,8 +232,8 @@
                 </h4>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
-                <a href="#" class="btn btn-success" onclick="DeleteSaint()">Confirm</a>
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                <a href="#" class="btn btn-success" onclick="DeleteSaint()">Confirmar</a>
             </div>
         </div>
     </div>

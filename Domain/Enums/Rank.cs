@@ -7,7 +7,7 @@ namespace Domain.Enums
 {
     public enum Rank
     {
-        C,
+        C = 1,
         B,
         A,
         S,

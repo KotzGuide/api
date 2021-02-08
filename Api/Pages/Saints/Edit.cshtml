@@ -3,18 +3,67 @@
 @{
     ViewData["Title"] = "Cavaleiros";
 }
+@if (Model.Erro().HasError)
+{
+    var erro = Model.Erro().Errors.FirstOrDefault();
+    if (erro.InvalidProperties != null)
+    {
+        var property = erro.InvalidProperties.FirstOrDefault();
+        <script>
+            alert("@Html.Raw(property.Property + ": " +property.Description)");
+        </script>
+    }
+    else
+    {
+        <script>
+            alert("@Html.Raw(erro.ErrorForUser)");
+        </script>
+    }
+
+}
 <h1><strong>Editar Cavaleiro</strong></h1>
 <br>
 @if (Model.Saint != null)
 {
     <h3>@Model.Saint.Name</h3>
-    <h5>Constelação: @Model.Saint.Constellation</h5>
+
+    <div class="row">
+        <div class="input-group">
+            <form method="post" class="col-6 col-xs-12">
+                <div class="form-group">
+                    <input type="text" asp-for="Dto.Name"
+                           class="form-control" placeholder="Nome"
+                           aria-label="Nome" aria-describedby="basic-addon2">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" asp-for="Dto.Constellation"
+                           class="form-control" placeholder="Constelação"
+                           aria-label="Constelação" aria-describedby="basic-addon2">
+                </div>
+
+                <div class="form-group">
+                    <textarea type="text" asp-for="Dto.Description" style="height: 80px; resize: none;"
+                              class="form-control" placeholder="Descrição"
+                              aria-label="Descrição" aria-describedby="basic-addon2"></textarea>
+                </div>
+
+                <div class="form-group">
+                    @Html.DropDownListFor(x => x.RankStr, new SelectList(Enum.GetNames(typeof(Domain.Enums.Rank))), ((Domain.Enums.Rank)Model.Dto.Rank).ToString(), new { @class = "form-control" })
+                </div>
+
+                <div class="form-group mb-1">
+                    <input type="submit" class="btn btn-success" value="Atualizar">
+                </div>
+            </form>
+        </div>
+    </div>
 }
 else
 {
     <strong>Cavaleiro não encontrado!</strong>
 }
-<div>
+<div style="padding-top: 10px;">
     <a asp-page="./Index">Voltar a Lista</a>
 </div>
 

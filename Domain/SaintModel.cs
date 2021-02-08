@@ -34,5 +34,13 @@ namespace Domain.Models
         {
             return Validate(this, new SaintValidator(), errorContext);
         }
+
+        public void Update(string Name, string Constellation, string Description, Rank Rank)
+        {
+            this.Name = Name;
+            this.Constellation = Constellation;
+            this.Description = Description;
+            this.Rank = Rank;
+        }
     }
 }
