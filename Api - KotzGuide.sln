@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Infrastructure\Data.csproj", "{AABCEF98-86B4-45F9-8675-92B83BF06EC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikCore", "NikCore\NikCore.csproj", "{83059D98-CC1F-4DDF-B7A5-750CE5779076}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{AABCEF98-86B4-45F9-8675-92B83BF06EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AABCEF98-86B4-45F9-8675-92B83BF06EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AABCEF98-86B4-45F9-8675-92B83BF06EC9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83059D98-CC1F-4DDF-B7A5-750CE5779076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83059D98-CC1F-4DDF-B7A5-750CE5779076}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83059D98-CC1F-4DDF-B7A5-750CE5779076}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83059D98-CC1F-4DDF-B7A5-750CE5779076}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,7 +22,7 @@ namespace Api.Pages.Saints
             this.repository = repository;
             this.errorContext = errorContext;
 
-            errorContext.SetOverrideResponse(false);
+            this.errorContext.SetOverrideResponse(false);
         }
         [BindProperty]
         public InsertSaintDto InsertSaint { get; set; }

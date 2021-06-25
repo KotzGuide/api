@@ -21,4 +21,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="NikCore">
+      <HintPath>..\Files\NikCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
